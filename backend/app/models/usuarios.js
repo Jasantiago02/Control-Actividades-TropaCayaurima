@@ -54,29 +54,47 @@ export class Usuarios {
         }
     }
 
-    async actualizar_usuario(){
-        try{
-            const [rows] = await pool.query('UPDATE USUARIOS SET nombre = ?, apellido = ?, genero = ?, telefono = ?, cargo = ?, usuario = ?, password = ? WHERE id = ?',
-                [this.nombre,
-                 this.apellido,
-                 this.genero,
-                 this.telefono,
-                 this.cargo,
-                 this.usuario,
-                 this.password,
-                 this.id
-                ]);
-            if (rows.affectedRows === 0) {
-                throw new Error('No se pudo actualizar el usuario');
-            }
-            return rows;
+    async actualizar_usuario(idUsuario,datosActualizados){
+       if(datosActualizados || Object.keys(datosActualizados).length === 0){
+        throw new error ('No se proporcionaron datos para actualizar');
+       }
+       const camposPermitidos = ['nombre','apellido','genero','telefono','cargo','usuario'];
+       const camposAUsar= Object.keys(datosActualizados).filter(
+        key => camposPermitidos.includes(key) && datosActualizados[key] !== undefined
+        );
+      if(camposAUsar.length === 0){
+        throw new Error('No se proporcionaron campos válidos para actualizar');
         }
-        catch (error) {
+        const setClause = camposAUsar.map(campo=>`${campo}=?`).join(', ');
+        const valores = camposAUsar.map(campo => datosActualizados[campo]);
+        valores.push(idUsuario);
+        const sql = `UPDATE USUARIOS SET ${setClause} where id = ?`;
+        try{
+            const [rows] = await pool.query(sql, valores);
+            if(rows.affectedRows === 0){
+                throw new Error('No se pudo actualizar el usuario');
+            }            
+            return {message: 'usuario actualizado correctamente',
+            camposActualizados: camposAUsar};
+        }
+        catch (error){
             console.error('Error al actualizar el usuario:', error);
             throw error;
         }
     }
-
+    async restablecer_contraseña(id, nuevaContraseña) {
+        try {
+            const hash_password = await bcrypt.hash(nuevaContraseña, 10);
+            const [rows] = await pool.query('UPDATE USUARIOS SET password = ? WHERE id = ?', [hash_password, id]);
+            if (rows.affectedRows === 0) {
+                throw new Error('No se pudo restablecer la contraseña');
+            }
+            return rows;
+        } catch (error) {
+            console.error('Error al restablecer la contraseña:', error);
+            throw error;
+        }
+    }
     async eliminar_usuario(){
         try{
             const [rows] = await pool.query('UPDATE USUARIOS SET estado = ? WHERE id = ?', [this.estado, this.id]);
