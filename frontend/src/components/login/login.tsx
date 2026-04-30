@@ -47,10 +47,15 @@ const Login = () => {
             body: JSON.stringify(data)
           }).then(res => res.json())
             .then(result=>{
+
               if(result.status ==='200' && result.token){
+                localStorage.setItem("token", result.token);
+                
                 const payload = parseJwt(result.token);
                 console.log("Token decodificado:", payload);
-              }else{
+
+              }
+              else{
                 console.error("No se recibió un token válido o el estado no es 200:", result);
               }
               
