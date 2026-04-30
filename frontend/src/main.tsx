@@ -7,8 +7,8 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/userlist" element={<Navigate to="/userlist" />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/userlist" element={<Navigate to="/login" />} />
       </Routes>
     </BrowserRouter>
 
