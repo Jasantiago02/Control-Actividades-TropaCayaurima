@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 //importacion de rutas
 import loginRoutes from './routes/loginRoutes.js';
+import usuariosRoutes from './routes/usuariosRoutes.js';
 // Llamada de las dependencias
 dotenv.config();
 const app = express();
@@ -24,7 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //configuracion de rutas
 app.use('/api/v1', loginRoutes);
-
+app.use('/api/v1', usuariosRoutes);
 app.listen(app.get('port'), () => {
   console.log(`Server is running on port ${app.get('port')}`);
 });
