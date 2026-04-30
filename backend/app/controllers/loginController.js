@@ -16,7 +16,7 @@ export const loginController = async (req, res) => {
             return res.status(400).json({ status:400, message: 'Caracteres especiales detectados' });
         }
         const user = await login(usuario, password);
-        res.status(200).json({ status:200, message: 'Login exitoso', data: user });
+        res.status(200).json({ status:200, message: 'Login exitoso', token:user.token,data: user });
     } catch (error) {
         console.error('Error en el loginController:', error);
         res.status(400).json({ error: error.message });
