@@ -48,7 +48,7 @@ const Login = () => {
           }).then(res => res.json())
             .then(result=>{
 
-              if(result.status ==='200' && result.token){
+              if(result.status == 200 && result.token){
                 localStorage.setItem("token", result.token);
                 
                 const payload = parseJwt(result.token);
