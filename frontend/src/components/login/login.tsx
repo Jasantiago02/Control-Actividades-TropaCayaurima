@@ -11,14 +11,11 @@ const Login = () => {
     const handleLogin = (e:any) => {
         e.preventDefault();
         console.log(password, username);
-<<<<<<< Updated upstream
-=======
         const data = {
             username: username,
             password: password
         }
-        
->>>>>>> Stashed changes
+        fetch
     }
     return (
     <div className="login-container">
@@ -31,11 +28,7 @@ const Login = () => {
         <form className="login-form" onSubmit={handleLogin}>
           <div className="form-group">
             <label>Correo electronico *</label>
-<<<<<<< Updated upstream
-            <input type="email" placeholder="    tu@email.com" value={username}
-=======
             <input type="email" placeholder="    tu@email.com" minLength={16} maxLength={50} value={username}
->>>>>>> Stashed changes
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} required
             />
           </div>
