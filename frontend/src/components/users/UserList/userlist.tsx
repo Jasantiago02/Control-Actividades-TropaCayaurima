@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./userlist.css";
 
 const UserList = () => {
@@ -9,8 +9,10 @@ const UserList = () => {
         cargo: string;
         estado: string;
     }
+    
     const [usuarios, setUsuarios] = useState<User[]>([]);
     const token = localStorage.getItem("token");
+    useEffect(() => {
     const llamarUsuarios = async () => {
             const response = await fetch("http://localhost:3000/api/v1/listarUsuarios", {
             method: "POST",
@@ -21,15 +23,22 @@ const UserList = () => {
             });
         
         const data = await response.json();
-        if(data.status === 200){
-            console.log("Usuarios obtenidos:", data.users);
-            setUsuarios(data.users);
+        if(data){
+            console.log("Usuarios obtenidos:", data);
+            setUsuarios(data);
+            response.status === 200 ? console.log("Usuarios obtenidos exitosamente") : console.error("Error al obtener usuarios, estado:", response.status);
+        }
+        else{
+            console.error("Error al obtener usuarios:", data);
         }
     }
-    llamarUsuarios();
+    
+        llamarUsuarios();
+    }, []);
     return (
         <div className="container-userlist">
             <h1>Lista de Usuarios</h1>
+            <button>Agregar Usuario</button>
             <table>
                 <thead> 
                     <tr>
@@ -43,7 +52,7 @@ const UserList = () => {
                 </thead>
                 <tbody>
                     {usuarios.map((user) => (
-                        <tr>
+                        <tr key={user.id}>
                             <td>{user.id}</td>
                             <td>{user.nombre}</td>
                             <td>{user.user}</td>
