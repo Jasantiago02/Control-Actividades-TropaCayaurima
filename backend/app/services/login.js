@@ -19,7 +19,7 @@ export const login = async (usuario, password) => {
         const validarPassword= await bcrypt.compare(password, rows[0].password);
 
         if(validarPassword && rows[0].estado === 'activo'){
-            const token = jwt.sign({ id: rows[0].id, usuario: rows[0].usuario }, jwtSecret, { expiresIn: '1h' });
+            const token = jwt.sign({ id: rows[0].id, usuario: rows[0].usuario, cargo: rows[0].cargo }, jwtSecret, { expiresIn: '1h' });
             return { ...rows[0], token };
         }
         else if(!validarPassword){
