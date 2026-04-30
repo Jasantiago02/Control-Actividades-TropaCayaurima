@@ -15,7 +15,18 @@ const Login = () => {
             username: username,
             password: password
         }
-        fetch
+        fetch("http://localhost:3000/api/v1/auth", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+          }).then(res => res.json())
+            .then(result=>{
+              console.log(result);
+          }).catch(error=>{
+              console.error("Error:", error);
+          })
     }
     return (
     <div className="login-container">
