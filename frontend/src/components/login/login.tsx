@@ -1,7 +1,15 @@
 import { useState } from "react";
 import "./login.css";
-
-
+// Función para decodificar el JWT y obtener su contenido
+const parseJwt = (token: string) => {
+  const base64Url = token.split('.')[1];
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  } ).join(''));
+  return JSON.parse(jsonPayload);
+}
+// Funcion del login, se encarga de enviar la solicitud al backend y manejar la respuesta
 const Login = () => {
 
     const [password, setPassword] = useState("");
@@ -23,7 +31,7 @@ const Login = () => {
             body: JSON.stringify(data)
           }).then(res => res.json())
             .then(result=>{
-              console.log(result);
+              console.log(parseJwt(result.token));
           }).catch(error=>{
               console.error("Error:", error);
           })}
