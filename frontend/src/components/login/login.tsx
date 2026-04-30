@@ -26,8 +26,7 @@ const Login = () => {
               console.log(result);
           }).catch(error=>{
               console.error("Error:", error);
-          })
-    }
+          })}
     return (
     <div className="login-container">
         <div className="login-logo">
