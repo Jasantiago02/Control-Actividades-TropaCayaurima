@@ -1,14 +1,30 @@
 import { useState } from "react";
 import "./login.css";
 // Función para decodificar el JWT y obtener su contenido
-const parseJwt = (token: string) => {
-  const base64Url = token.split('.')[1];
-  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-  } ).join(''));
-  return JSON.parse(jsonPayload);
-}
+const parseJwt = (token: string | undefined | null) => {
+  try {
+    // Si el token es null, undefined o una cadena vacía, salimos
+    if (!token || typeof token !== 'string') return null;
+
+    const parts = token.split('.');
+    if (parts.length < 2) return null; // Un JWT siempre debe tener 3 partes (header.payload.signature)
+
+    const base64Url = parts[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    
+    const jsonPayload = decodeURIComponent(
+      window.atob(base64)
+        .split('')
+        .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+        .join('')
+    );
+
+    return JSON.parse(jsonPayload);
+  } catch (error) {
+    console.error("Error al decodificar el token:", error);
+    return null;
+  }
+};
 // Funcion del login, se encarga de enviar la solicitud al backend y manejar la respuesta
 const Login = () => {
 
@@ -31,7 +47,13 @@ const Login = () => {
             body: JSON.stringify(data)
           }).then(res => res.json())
             .then(result=>{
-              console.log(parseJwt(result.token));
+              if(result.status ==='200' && result.token){
+                const payload = parseJwt(result.token);
+                console.log("Token decodificado:", payload);
+              }else{
+                console.error("No se recibió un token válido o el estado no es 200:", result);
+              }
+              
           }).catch(error=>{
               console.error("Error:", error);
           })}
