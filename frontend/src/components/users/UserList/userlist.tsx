@@ -4,10 +4,10 @@ import "./userlist.css";
 const UserList = () => {
     interface User {
         id: number;
-        name: string;
-        email: string;
-        role: string;
-        status: string;
+        nombre: string;
+        user: string;
+        cargo: string;
+        estado: string;
     }
     const [usuarios, setUsuarios] = useState<User[]>([]);
     const token = localStorage.getItem("token");
@@ -34,7 +34,8 @@ const UserList = () => {
                 <thead> 
                     <tr>
                         <th>id</th>
-                        <th>Email</th>
+                        <th>Nombre</th>
+                        <th>Usuario</th>
                         <th>Cargo</th>
                         <th>Estado</th>
                         <th>Acciones</th>
@@ -44,10 +45,10 @@ const UserList = () => {
                     {usuarios.map((user) => (
                         <tr>
                             <td>{user.id}</td>
-                            <td>{user.name}</td>
-                            <td>{user.email}</td>
-                            <td>{user.role}</td>
-                            <td>{user.status}</td>
+                            <td>{user.nombre}</td>
+                            <td>{user.user}</td>
+                            <td>{user.cargo}</td>
+                            <td>{user.estado}</td>
                             <td>
                                 <button>Editar</button>
                                 <button>Borrar</button>
