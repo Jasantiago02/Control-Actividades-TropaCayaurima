@@ -5,14 +5,14 @@ import "./login.css";
 const Login = () => {
 
     const [password, setPassword] = useState("");
-    const [username, setUsername] = useState("");
-    const isDisabled = !password || !username;
+    const [usuario, setusuario] = useState("");
+    const isDisabled = !password || !usuario;
 
     const handleLogin = (e:any) => {
         e.preventDefault();
-        console.log(password, username);
+        console.log(password, usuario);
         const data = {
-            username: username,
+            usuario: usuario,
             password: password
         }
         fetch("http://localhost:3000/api/v1/auth", {
@@ -38,8 +38,8 @@ const Login = () => {
         <form className="login-form" onSubmit={handleLogin}>
           <div className="form-group">
             <label>Correo electronico *</label>
-            <input type="email" placeholder="    tu@email.com" minLength={16} maxLength={50} value={username}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} required
+            <input type="email" placeholder="    tu@email.com" minLength={16} maxLength={50} value={usuario}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setusuario(e.target.value)} required
             />
           </div>
           <div className="form-group">
