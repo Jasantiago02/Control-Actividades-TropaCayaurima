@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./userlist.css";
 
-const UserList = async () => {
+const UserList = () => {
     interface User {
         id: number;
         name: string;
@@ -11,17 +11,22 @@ const UserList = async () => {
     }
     const [usuarios, setUsuarios] = useState<User[]>([]);
     const token = localStorage.getItem("token");
-    const response = await fetch("http://localhost:3000/api/v1/users", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ token })
-      });
-    
-    const data = await response.json();
-    setUsuarios(data.users);
-
+    const llamarUsuarios = async () => {
+            const response = await fetch("http://localhost:3000/api/v1/listarUsuarios", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({})
+            });
+        
+        const data = await response.json();
+        if(data.status === 200){
+            console.log("Usuarios obtenidos:", data.users);
+            setUsuarios(data.users);
+        }
+    }
+    llamarUsuarios();
     return (
         <div className="container-userlist">
             <h1>Lista de Usuarios</h1>
@@ -54,3 +59,5 @@ const UserList = async () => {
         </div>
     );
 }
+
+export default UserList;
