@@ -19,8 +19,8 @@ router.post('/crear', createUsuario);
 router.get('/buscar/:id', getUsuarioById);
 // Actualizar datos de forma parcial (nombre, telefono, etc.)
 router.patch('/actualizar/:id', updateUsuario);
-// Inhabilitar usuario (Borrado lógico cambiando el estado)
-router.put('/inhabilitar/:id', disableUsuario);
+// Inhabilitar o activar usuario (Borrado lógico cambiando el estado)
+router.put('/cambioEstado/:id', disableUsuario);
 
 //comando para exportar rutas de usuarios
 export default router;
