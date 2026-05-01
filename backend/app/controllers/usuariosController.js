@@ -50,15 +50,15 @@ export const updateUsuario = async (req, res) => {
     }
 };
 
-// Inhabilitar usuario (Borrado lógico)
+// Inhabilitar o activar usuario (Borrado lógico)
 export const disableUsuario = async (req, res) => {
     const { id } = req.params;
     const { estado } = req.body; // Enviamos el nuevo estado (ej. 'inactivo')
     try {
         const userInstance = new Usuarios(id, null, null, null, null, null, null, null, estado);
         await userInstance.eliminar_usuario();
-        res.status(200).json({ message: 'Usuario inhabilitado correctamente' });
+        res.status(200).json({ message: 'Cambio del estado del Usuario correctamente' });
     } catch (error) {
-        res.status(500).json({ error: 'Error al inhabilitar el usuario' });
+        res.status(500).json({ error: 'Error al cambiar el estado el usuario' });
     }
 };
