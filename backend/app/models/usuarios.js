@@ -1,6 +1,6 @@
 import pool from './db.js'
 import dotenv from 'dotenv'
-
+import bcrypt from 'bcryptjs';
 dotenv.config()
 
 export class Usuarios {
@@ -18,7 +18,7 @@ export class Usuarios {
     async crear_usuario(){
         try {
             const hash_password = await bcrypt.hash(this.password, 10);
-            const [rows] = await pool.query('INSERT INTO USUARIOS (id,nombre,apellido,genero,telefono,cargo,usuario,password) VALUES (?,?,?,?,?,?,?,?)',
+            const [rows] = await pool.query('INSERT INTO USUARIOS (id,nombre,apellido,genero,telefono,cargo,user,password) VALUES (?,?,?,?,?,?,?,?)',
                 [this.id,
                  this.nombre,
                  this.apellido,
@@ -55,7 +55,7 @@ export class Usuarios {
     }
 
     async actualizar_usuario(idUsuario,datosActualizados){
-       if(datosActualizados || Object.keys(datosActualizados).length === 0){
+       if(!datosActualizados || Object.keys(datosActualizados).length === 0){
         throw new error ('No se proporcionaron datos para actualizar');
        }
        const camposPermitidos = ['nombre','apellido','genero','telefono','cargo','usuario'];
