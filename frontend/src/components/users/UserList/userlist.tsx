@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import "./userlist.css";
 
 const UserList = () => {
@@ -35,10 +36,17 @@ const UserList = () => {
     
         llamarUsuarios();
     }, []);
+
+    const navigate = useNavigate();
+    
+    const redirigir = () => {
+        navigate('/registrar');
+    }
+
     return (
         <div className="container-userlist">
             <h1>Lista de Usuarios</h1>
-            <button>Agregar Usuario</button>
+            <button onClick={redirigir}>Agregar Usuario</button>
             <table>
                 <thead> 
                     <tr>
