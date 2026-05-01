@@ -1,0 +1,198 @@
+/* ==============================
+   ESTILOS PARA EL LOGIN
+   ============================== */
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+/* 1. Contenedor principal que ocupa toda la pantalla */
+.login-container {
+  
+  display: block;                /* Habilita flexbox para centrar contenido */
+  justify-content: center;      /* Centra horizontalmente */
+  align-items: center;          /* Centra verticalmente */
+  min-height: 100vh;            /* Altura mínima = 100% del viewport */
+  background: #fff;
+  /* Fondo degradado atractivo (puedes cambiarlo) */
+  font-family: Lexend;
+  /* Fuente moderna y legible */
+  padding: 0rem;                /* Espacio interno en móviles */
+  max-height: 100vh;            /* Evita que el contenido se desborde verticalmente */
+  overflow-y: auto;
+}
+
+/* 2. Tarjeta blanca que contiene el formulario */
+.login-card {
+  font-family: Lexend; /* Fuente moderna y legible */
+  margin: auto;
+  background: white;
+  border-radius: 1%;  /* Bordes redondeados */
+  border: 1px solid rgba(0,0,0,0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  padding: 2rem 1.5rem;
+  width: 100%;
+  max-width: 400px;             /* Ancho máximo, no se estira más */
+  transition: transform 0.2s ease; /* Pequeña animación al hover */
+}
+
+.login-card:hover {
+  transform: translateY(-5px);  /* Efecto sutil al pasar el mouse */
+}
+
+p{
+
+  color: #736c6c;
+  font-size: 0.9rem;
+}
+
+.login-card .text-center{
+  text-align: center;
+}
+
+/* 3. Título del login (opcional, puedes agregarlo en React) */
+.login-title {
+  text-align: center;
+  margin-bottom: 0.4rem;
+  color: #000;
+  font-size: 1.8rem;
+  font-weight: 800;
+}
+
+/* 4. Estilos para el formulario */
+.login-form {
+  display: flex;
+  flex-direction: column;       /* Los elementos se apilan verticalmente */
+  gap: 1.2rem;                  /* Espacio entre cada grupo (label+input) */
+}
+.login-logo{
+    display: inline-flex;
+    width: 100%;
+    height: 150px;
+    justify-content: center;   
+    overflow: hidden;
+}
+
+.login-logo img{
+    position: relative;
+    height: 200px;
+    top: -20px;
+}
+
+.login-footer{
+    width: 100%;
+    text-align: center;
+    font-size: 0.9rem;
+    margin-top: 0.8rem;
+}
+
+.login-footer ul{
+    text-align: center;
+    display: inline-flex;
+    gap: 2rem;
+    color: #736c6c;
+    margin-top: 0.4rem;
+}
+ul li:first-child{
+    list-style-type: none;
+}
+
+/* 5. Cada grupo de campo (label + input) */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.form-options{
+  display: inline-flex;
+  justify-content: space-between;
+}
+.form-options #remember{
+  margin-left: 0.25rem;
+}
+.form-footer{
+  display: inline-flex;
+    justify-content: center;
+}
+
+/* 6. Etiquetas de los campos */
+.form-group label {
+  font-weight: 700;
+  color: #000;
+  font-size: 0.9rem;
+}
+/* 7. Inputs de texto/email/password */
+.form-group input {
+  background-color: #f3f3fc;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: all 0.2s;
+  outline: none;               /* Quita el borde azul por defecto (luego lo personalizamos) */
+}
+
+/* 8. Efecto focus en los inputs */
+.form-group input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+/* 9. Botón de login */
+.login-button {
+  background: linear-gradient(to right, #667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  margin-top: 0.5rem;
+}
+
+/* 10. Botón cuando está habilitado (hover) */
+.login-button:enabled:hover {
+  opacity: 0.9;
+  transform: scale(1.01);
+}
+
+/* 11. Botón deshabilitado (según tu nota: está deshabilitado en la web) */
+.login-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+  transform: none;
+}
+
+/* 12. Mensaje de error o éxito (opcional, lo agregas en React) */
+.login-message {
+  text-align: center;
+  font-size: 0.85rem;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.login-message.error {
+  background: #fee;
+  color: #d33;
+}
+
+.login-message.success {
+  background: #e0ffe0;
+  color: #2a7a2a;
+}
+/*etiqueta de enlaces*/
+a{
+    color:#00358d;
+    text-decoration: none;
+    font-weight:700;
+}
+/**/
+/* 13. Responsive: ajusta el padding en móviles muy pequeños */
+@media (max-width: 480px) {
+  .login-card {
+    padding: 1.5rem;
+  }
+  .login-title {
+    font-size: 1.5rem;
+  }
+}
